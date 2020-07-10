@@ -16,7 +16,7 @@ variable "resource_group_location" {
 ## AKS variables ##
 variable "k8s_version" {
   description = "What version of k8s to request from provider"
-  default     = "1.11.4"
+  default     = "1.16.10"
 }
 
 variable "cluster_name" {
@@ -77,7 +77,7 @@ variable "rbac_enable" {
 
 variable "rbac_managed" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "rbac_client_app_id" {
@@ -101,7 +101,7 @@ variable "rbac_admin_group_ids" {
 }
 
 #variable "rbac_tenant_id" {
-#	description = "The Tenant ID used for Azure Active Directory Application. If this isn't specified the Tenant ID of the current Subscription is used"
+#       description = "The Tenant ID used for Azure Active Directory Application. If this isn't specified the Tenant ID of the current Subscription is used"
 #}
 
 # Networking settings.
@@ -131,7 +131,7 @@ variable "outbound_type" {
 }
 
 variable "aks_network_plugin" {
-  default = "calico"
+  default = "kubenet"
 }
 
 variable "aks_network_policy" {
@@ -159,7 +159,7 @@ variable "aks_vnet_subnet_id" {
 }
 
 variable "aks_vnet_subnet_cidr" {
-  default = "10.200.0.0/24"
+  default = ["10.200.0.0/24"]
 }
 
 variable "create_vnet" {
@@ -173,8 +173,5 @@ variable "oms_workspace_id" {
 
 variable "oms_agent_enable" {
   description = "Enable OMS Agent profile"
-  default     = true
+  default     = false
 }
-
-
-
