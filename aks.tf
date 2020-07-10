@@ -1,6 +1,6 @@
-provider "azurerm" {
-   features {}
-}
+#provider "azurerm" {
+#   features {}
+#}
 
 locals {
   default_pool_settings = {
