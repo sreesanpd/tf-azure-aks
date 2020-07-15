@@ -179,7 +179,8 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "aks-node" {
-  for_each = toset(local.node_pools)
+#  for_each = toset(local.node_pools)
+  for_each = { for node_pools in local.node_pools:  node_pools.name => node_pools }
 
   name                  = each.value.name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s_cluster.id
@@ -193,7 +194,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-node" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "aks-diagnostics" {
-  count                      = var.oms_workspace_id != "" ? 1 : 0
+#  count                      = var.oms_workspace_id != "" ? 1 : 0
   name                       = "diag-${var.cluster_name}"
   target_resource_id         = azurerm_kubernetes_cluster.k8s_cluster.id
   log_analytics_workspace_id = var.oms_workspace_id
