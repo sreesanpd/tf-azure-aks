@@ -145,20 +145,24 @@ resource "azurerm_kubernetes_cluster" "k8s_cluster" {
     dns_service_ip     = var.aks_dns_service_ip
     docker_bridge_cidr = var.aks_docker_bridge_cidr
 
-#    dynamic "load_balancer_profile" {
-#      for_each = var.outbound_type == "loadbalancer" ? [1] : []
+    dynamic "load_balancer_profile" {
+      for_each = var.outbound_type == "loadbalancer" ? [1] : []
 
-#      content {
-#        managed_outbound_ip_count = var.managed_outbound_ip_count
-#        outbound_ip_prefix_ids    = var.outbound_ip_prefix_ids
-#        outbound_ip_address_ids   = var.outbound_ip_address_ids
-#      }
-#    }
+      content {
+        managed_outbound_ip_count = var.managed_outbound_ip_count
+        outbound_ip_prefix_ids    = var.outbound_ip_prefix_ids
+        outbound_ip_address_ids   = var.outbound_ip_address_ids
+      }
+    }
 
-            load_balancer_profile {
-            outbound_ip_address_ids = var.outbound_ip_address_ids
 
-        }
+###uncomment below block && comment above block if you don't want k8s to automatically create public ip for load balancer###
+##and to assign aks_ingress_ip to loadbalancer###
+
+#            load_balancer_profile {
+#            outbound_ip_address_ids = var.outbound_ip_address_ids
+#
+#        }
 
   }
 
