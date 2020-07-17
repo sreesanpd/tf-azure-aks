@@ -65,8 +65,12 @@ variable "client_secret" {
   description = "azure client secret"
 }
 
+
+##Use SP (service principal) if you want to use subnet delegation, load balancer ip assignment for k8s ingress controller etc.##
+## 'SystemAssigned' will use managed system identity which may not be enough for complex k8s clusters##
 variable "identity_type" {
-  default = "SystemAssigned"
+#  default = "SystemAssigned"
+  default = "SP"
 }
 
 ## RBAC variables ##
